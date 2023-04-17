@@ -1000,24 +1000,30 @@ pxdfvcpvwaddrzwv
 phdqqxleqdjfgfbg
 cqfikbgxvjmnfncy"
 
+-- split strings on specified char
 def splitString (s : String) (c : Char) : List String :=
   (String.splitOn s (String.singleton c)).map String.trim
 
+-- create list of input separated on new line
 def splitLines : List String := splitString puzzle_input '\n'
 
+-- returns true if string has three or more vowels
 def contains_three_vowels (str : String) : Bool :=
   let vowels : List Char := ['a', 'e', 'i', 'o', 'u']
   let cnt := str.toList.foldl (fun acc c => if c ∈ vowels then acc + 1 else acc) 0
   cnt ≥ 3
 
+-- convert string to list of chars
 def stringToCharList (s : String) : List Char :=
   s.toList
 
+-- returns true if list of chars has a double letter
 def has_double_letter : List Char → Bool
 | [] => false
 | [x] => false
 | x :: y :: xs => x = y || has_double_letter (y :: xs)
 
+-- returns true if list of chars does not have one of the specified patterns
 def not_has_pattern : List Char → Bool
 | [] => true
 | [a] => true
@@ -1027,6 +1033,7 @@ def not_has_pattern : List Char → Bool
 | ('x' :: 'y' :: _) => false
 | (_ :: xs) => not_has_pattern xs
 
+-- applies previous functions to check if a string is "nice"
 def check_nice (s : String) : Bool :=
 let mylist := stringToCharList s 
   if contains_three_vowels s then
@@ -1036,6 +1043,7 @@ let mylist := stringToCharList s
       else false
   else false
 
+-- applies check_nice function to list of strings
 def count_nice_strings (strings : List String) (check_nice : String → Bool) : Nat :=
   (strings.filter check_nice).length
 

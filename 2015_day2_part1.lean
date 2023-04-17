@@ -1000,48 +1000,62 @@ def puzzle_input : String :=
 20x29x30
 23x11x5"
 
+-- split strings on specified char
 def splitString (s : String) (c : Char) : List String :=
   (String.splitOn s (String.singleton c)).map String.trim
 
+-- create list of input separated on new line
 def splitLines : List String := splitString puzzle_input '\n'
 
+-- convert list of strings to string
 def listToString (l : List String) : String :=
   String.intercalate ", " l
 
+-- instance of converted list of strings
 def myString : String := listToString splitLines
 
+-- split list of strings on specified character
 def splitStringList (s : String) (sep : String) : List String :=
   let substrings := s.splitOn ", "
   List.join (List.map (fun substring => substring.splitOn sep) substrings)
 
+-- instance of list of strings separated on "x"
 def stringList : List String := splitStringList myString "x"
 #eval stringList
 
+-- convert list of strings to list of nats
 def stringListToNatList (strList : List String) : List Nat :=
   strList.map (fun str => (String.toNat? str).getD 0)
 
+-- instance of list of nats converted from list of strings
 def numberList : List Nat := stringListToNatList stringList
 
+-- calculate wrapping paper dimensions
 def wrapping_paper (l w h : Nat) : Nat := 
   (2 * l * w) + (2 * w * h) + (2 * h * l)
 
+-- calculate slack
 def slack (l w h : Nat) : Nat :=
     let lw := l * w
     let lh := l * h
     let wh := w * h
     Nat.min lw (Nat.min lh wh)
 
+-- calculate total amount of wrapping paper needed
 def total_paper(l w h : Nat) : Nat :=
   wrapping_paper l w h + slack l w h
 
+-- calculate total paper for triplets in list of Nats
 def compute_paper : List Nat -> List Nat
 | [] => []
 | [x] => [x]
 | [x,y] => [x, y]
 | (x::y::z::xs) => (total_paper x y z)::(compute_paper xs)
 
+-- instance of list of total paper
 def computedList : List Nat := compute_paper numberList
 
+-- sum all entries in list of Nats
 def sumList : List Nat -> Nat
 | [] => 0
 | x::xs => x + sumList xs

@@ -200,27 +200,36 @@ def puzzle_input : String :=
 1939
 1743"
 
+-- split strings on specified char
 def splitString (s : String) (c : Char) : List String :=
   (String.splitOn s (String.singleton c)).map String.trim
 
+-- create list of input separated on new line
 def splitLines : List String := splitString puzzle_input '\n'
 
+-- converts list of string to string
 def listToString (l : List String) : String :=
   String.intercalate ", " l
 
+-- instance of converted list of strings
 def myString : String := listToString splitLines
 
+-- split list of strings on specified character
 def splitStringList (s : String) (sep : String) : List String :=
   let substrings := s.splitOn ", "
   List.join (List.map (fun substring => substring.splitOn sep) substrings)
 
+-- instance of list of strings separated on ","
 def stringList : List String := splitStringList myString "x"
 
+-- converts list of strings to list of Nats
 def stringListToNatList (strList : List String) : List Nat :=
   strList.map (fun str => (String.toNat? str).getD 0)
 
+-- instance of list of nats
 def numberList : List Nat := stringListToNatList stringList
 
+-- finds instance of two numbers that multiply to 2020
 def find2020Prod : List Nat -> Nat
 | [] => 0
 | (x::xs) =>

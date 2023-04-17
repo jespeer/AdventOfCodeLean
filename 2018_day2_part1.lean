@@ -250,11 +250,14 @@ uqeoeizfvmbrstpkgnhtnjxwld
 uqyouizfvmnrstpkgxhacjxwld
 ugyoeizfvmbrsupygnhacjxwld"
 
+-- split strings on specified char
 def splitString (s : String) (c : Char) : List String :=
   (String.splitOn s (String.singleton c)).map String.trim
 
+-- create list of input separated on new line
 def splitLines : List String := splitString puzzle_input '\n'
 
+-- checks a string to see if there are any characters with exactly two instances
 def has_double (s : String) : Bool := Id.run do
   let chars := s.toList
   let n := chars.length
@@ -267,6 +270,7 @@ def has_double (s : String) : Bool := Id.run do
       return true
   false
 
+-- checks a string to see if there are any characters with exactly three instances
 def has_triple (s : String) : Bool := Id.run do
   let chars := s.toList
   let n := chars.length
@@ -279,9 +283,11 @@ def has_triple (s : String) : Bool := Id.run do
       return true
   false
 
+-- computes checks on list of strings
 def checksum (strings : List String) (checks : String → Bool) : Nat :=
   (strings.filter checks).length
 
+-- multiplies instances of two with instances of three
 def checksum_total (strings : List String) : Nat :=
   checksum strings has_double * checksum strings has_triple
 

@@ -512,34 +512,45 @@ huo esajup ouj oju ujo
 eeeu hwvsk jfkmds okhi pogskfm itdlbll
 lpyubo dylpfb iehwug decj ntidy cuygyg lalkb iutu oxgm imn"
 
+-- split strings on specified char
 def splitString (s : String) (c : Char) : List String :=
   (String.splitOn s (String.singleton c)).map String.trim
 
+-- create list of input separated on new line
 def splitLines : List String := splitString puzzle_input '\n'
 
+-- converts list of string to string
 def listToString (l : List String) : String :=
   String.intercalate ", " l
 
+-- instance of converted list of strings
 def myString : String := listToString splitLines
 
+-- split list of strings on specified character
 def splitStringList (s : String) (sep : String) : List String :=
   let substrings := s.splitOn ", "
   List.join (List.map (fun substring => substring.splitOn sep) substrings)
 
+-- instance of list of strings separated on ","
 def stringList : List String := splitStringList myString ","
 
+-- splits a string into "words" by splitting on space
 def splitStringWord (s : String) : List String :=
   s.splitOn " "
 
+-- converts a list of strings to a list of lists of strings split on space
 def splitListofStrings (lst : List String) : List (List String) :=
   lst.map splitStringWord
 
+-- instance of list of lists of strings
 def listOfLists : List (List String) := splitListofStrings stringList
 
+-- checks a list of strings, returns true if no duplicate words
 def no_duplicate_strings : List String -> Bool
 | []        => true
 | x :: xs   => ¬(x ∈ xs) ∧ no_duplicate_strings xs
 
+-- checks duplicates for each list in list of lists
 def count_valid_passwords (strings : List (List String)) (dupe: List String → Bool) : Nat :=
   (strings.filter dupe).length
 

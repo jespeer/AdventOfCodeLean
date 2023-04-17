@@ -1000,48 +1000,62 @@ def puzzle_input : String :=
 20x29x30
 23x11x5"
 
+-- split strings on specified char
 def splitString (s : String) (c : Char) : List String :=
   (String.splitOn s (String.singleton c)).map String.trim
 
+-- create list of input separated on new line
 def splitLines : List String := splitString puzzle_input '\n'
 
+-- convert list of strings to string
 def listToString (l : List String) : String :=
   String.intercalate ", " l
 
+-- instance of converted list of strings
 def myString : String := listToString splitLines
 
+-- split list of strings on specified character
 def splitStringList (s : String) (sep : String) : List String :=
   let substrings := s.splitOn ", "
   List.join (List.map (fun substring => substring.splitOn sep) substrings)
 
+-- instance of list of strings separated on "x"
 def stringList : List String := splitStringList myString "x"
 #eval stringList
 
+-- convert list of strings to list of nats
 def stringListToNatList (strList : List String) : List Nat :=
   strList.map (fun str => (String.toNat? str).getD 0)
 
+-- instance of list of nats converted from list of strings
 def numberList : List Nat := stringListToNatList stringList
 #eval numberList
 
+-- add the two smallest Nats of three Nats
 def add_two_smallest (a b c : Nat) : Nat :=
   let smallest := Nat.min a (Nat.min b c)
   let second_smallest := if a == smallest then Nat.min b c else if b == smallest then Nat.min a c else Nat.min a b
   smallest + second_smallest
 
+-- multiply three Nats
 def mul3 (a b c : Nat) : Nat :=
   a * b * c
 
+-- compute final paper
 def final_paper(a b c : Nat) : Nat := 
   (2*add_two_smallest a b c) + mul3 a b c
 
+-- calculate total paper for triplets in list of Nats
 def compute_paper : List Nat -> List Nat
 | [] => []
 | [x] => [x]
 | [x,y] => [x, y]
 | (x::y::z::xs) => (final_paper x y z)::(compute_paper xs)
 
+-- instance of list of total paper
 def computedList : List Nat := compute_paper numberList
 
+-- sum all entries in list of Nats
 def sumList : List Nat -> Nat
 | [] => 0
 | x::xs => x + sumList xs
