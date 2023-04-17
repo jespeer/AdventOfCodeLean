@@ -255,8 +255,6 @@ def splitString (s : String) (c : Char) : List String :=
 
 def splitLines : List String := splitString puzzle_input '\n'
 
-#eval splitLines
-
 def has_double (s : String) : Bool := Id.run do
   let chars := s.toList
   let n := chars.length
@@ -280,7 +278,6 @@ def has_triple (s : String) : Bool := Id.run do
     if count == 3 then
       return true
   false
-
 
 def checksum (strings : List String) (checks : String → Bool) : Nat :=
   (strings.filter checks).length

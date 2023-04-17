@@ -1,4 +1,3 @@
-
 def puzzle_input : String := 
 "zgsnvdmlfuplrubt
 vlhagaovgqjmgvwq
@@ -1005,8 +1004,6 @@ def splitString (s : String) (c : Char) : List String :=
   (String.splitOn s (String.singleton c)).map String.trim
 
 def splitLines : List String := splitString puzzle_input '\n'
-
-#eval splitLines
 
 def contains_three_vowels (str : String) : Bool :=
   let vowels : List Char := ['a', 'e', 'i', 'o', 'u']

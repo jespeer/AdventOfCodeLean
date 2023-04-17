@@ -1,4 +1,5 @@
-def puzzle_input : String := "100
+def puzzle_input : String := 
+"100
 125
 124
 127
@@ -2004,26 +2005,21 @@ def splitString (s : String) (c : Char) : List String :=
 
 def splitLines : List String := splitString puzzle_input '\n'
 
--- #eval splitLines
-
 def listToString (l : List String) : String :=
   String.intercalate ", " l
 
 def myString : String := listToString splitLines
--- #eval myString
 
 def splitStringList (s : String) (sep : String) : List String :=
   let substrings := s.splitOn ", "
   List.join (List.map (fun substring => substring.splitOn sep) substrings)
 
 def stringList : List String := splitStringList myString "x"
--- #eval stringList
 
 def stringListToNatList (strList : List String) : List Nat :=
   strList.map (fun str => (String.toNat? str).getD 0)
 
 def numberList : List Nat := stringListToNatList stringList
--- #eval numberList
 
 def count_increasing (xs : List Nat) : Nat :=
   let count : Nat := 0

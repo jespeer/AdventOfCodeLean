@@ -1005,13 +1005,10 @@ def splitString (s : String) (c : Char) : List String :=
 
 def splitLines : List String := splitString puzzle_input '\n'
 
-#eval splitLines
-
 def listToString (l : List String) : String :=
   String.intercalate ", " l
 
 def myString : String := listToString splitLines
-#eval myString
 
 def splitStringList (s : String) (sep : String) : List String :=
   let substrings := s.splitOn ", "
@@ -1024,7 +1021,6 @@ def stringListToNatList (strList : List String) : List Nat :=
   strList.map (fun str => (String.toNat? str).getD 0)
 
 def numberList : List Nat := stringListToNatList stringList
-#eval numberList
 
 def wrapping_paper (l w h : Nat) : Nat := 
   (2 * l * w) + (2 * w * h) + (2 * h * l)
@@ -1045,10 +1041,6 @@ def compute_paper : List Nat -> List Nat
 | (x::y::z::xs) => (total_paper x y z)::(compute_paper xs)
 
 def computedList : List Nat := compute_paper numberList
-#eval computedList
-
-#eval numberList.length
-#eval computedList.length
 
 def sumList : List Nat -> Nat
 | [] => 0

@@ -517,20 +517,16 @@ def splitString (s : String) (c : Char) : List String :=
 
 def splitLines : List String := splitString puzzle_input '\n'
 
--- #eval splitLines
-
 def listToString (l : List String) : String :=
   String.intercalate ", " l
 
 def myString : String := listToString splitLines
-#eval myString
 
 def splitStringList (s : String) (sep : String) : List String :=
   let substrings := s.splitOn ", "
   List.join (List.map (fun substring => substring.splitOn sep) substrings)
 
 def stringList : List String := splitStringList myString ","
-#eval stringList
 
 def splitStringWord (s : String) : List String :=
   s.splitOn " "
@@ -539,7 +535,6 @@ def splitListofStrings (lst : List String) : List (List String) :=
   lst.map splitStringWord
 
 def listOfLists : List (List String) := splitListofStrings stringList
-#eval listOfLists
 
 def no_duplicate_strings : List String -> Bool
 | []        => true

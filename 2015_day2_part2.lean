@@ -1005,13 +1005,10 @@ def splitString (s : String) (c : Char) : List String :=
 
 def splitLines : List String := splitString puzzle_input '\n'
 
-#eval splitLines
-
 def listToString (l : List String) : String :=
   String.intercalate ", " l
 
 def myString : String := listToString splitLines
-#eval myString
 
 def splitStringList (s : String) (sep : String) : List String :=
   let substrings := s.splitOn ", "
@@ -1044,8 +1041,6 @@ def compute_paper : List Nat -> List Nat
 | (x::y::z::xs) => (final_paper x y z)::(compute_paper xs)
 
 def computedList : List Nat := compute_paper numberList
-
-#eval computedList
 
 def sumList : List Nat -> Nat
 | [] => 0
